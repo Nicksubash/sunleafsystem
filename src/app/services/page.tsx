@@ -1,12 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { useTheme } from "../../components/ThemeProvider";
 
 export default function ServicesPage() {
   const { theme } = useTheme();
-  const [hoveredService, setHoveredService] = useState<number | null>(null);
 
   const services = [
     {
@@ -100,8 +98,7 @@ export default function ServicesPage() {
                     ? "bg-gray-800 border-gray-700 hover:border-gray-600" 
                     : "bg-white border-gray-100 hover:border-gray-200"
                 }`}
-                onMouseEnter={() => setHoveredService(service.id)}
-                onMouseLeave={() => setHoveredService(null)}
+                // FIX: Removed onMouseEnter and onMouseLeave as the state was unused.
                 style={{
                   animationDelay: `${index * 100}ms`
                 }}
@@ -204,7 +201,8 @@ export default function ServicesPage() {
           <p className={`text-xl mb-8 max-w-2xl mx-auto ${
             theme === "dark" ? "text-gray-300" : "text-gray-600"
           }`}>
-            Let's discuss how we can bring your vision to life with innovative technology solutions.
+            {/* FIX: Changed Let's to Let&apos;s */}
+            Let&apos;s discuss how we can bring your vision to life with innovative technology solutions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

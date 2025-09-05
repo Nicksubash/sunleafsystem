@@ -7,7 +7,7 @@ import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaPaperPlane, FaCheckCirc
 
 export default function ContactPage() {
   const { theme } = useTheme();
-  const { contact, name } = Data;
+  const { contact } = Data;
 
   const [formData, setFormData] = useState({
     name: "",
@@ -35,33 +35,7 @@ export default function ContactPage() {
     }, 3000);
   };
 
-  // Use data from data.json
-  const contactInfo = [
-    {
-      icon: FaPhone,
-      title: "Phone",
-      details: contact.phone ? [contact.phone] : [],
-      color: "from-blue-500 to-cyan-500",
-    },
-    {
-      icon: FaEnvelope,
-      title: "Email",
-      details: contact.email ? [contact.email] : [],
-      color: "from-green-500 to-teal-500",
-    },
-    {
-      icon: FaMapMarkerAlt,
-      title: "Address",
-      details: contact.address ? [contact.address] : [],
-      color: "from-purple-500 to-pink-500",
-    },
-    {
-      icon: FaClock,
-      title: "Hours",
-      details: ["Mon - Fri: 9:00 AM - 6:00 PM"], // static, or you can extend your JSON
-      color: "from-orange-500 to-red-500",
-    },
-  ];
+  // FIX: The 'contactInfo' array was completely unused and has been removed.
 
   return (
     <div className={`transition-colors duration-300 min-h-screen ${
@@ -81,13 +55,15 @@ export default function ContactPage() {
           <h1 className={`text-4xl md:text-6xl font-bold mb-6 leading-tight ${
             theme === "dark" ? "text-white" : "text-gray-900"
           }`}>
-            Let's Start Your
+            {/* FIX: Changed Let's to Let&apos;s */}
+            Let&apos;s Start Your
             <span className="bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent"> Digital Journey</span>
           </h1>
           <p className={`text-xl max-w-3xl mx-auto leading-relaxed ${
             theme === "dark" ? "text-gray-300" : "text-gray-600"
           }`}>
-            Ready to transform your ideas into reality? We're here to help you build innovative solutions 
+            {/* FIX: Changed We're to We&apos;re */}
+            Ready to transform your ideas into reality? We&apos;re here to help you build innovative solutions 
             that drive your business forward.
           </p>
         </div>
@@ -117,7 +93,8 @@ export default function ContactPage() {
                     theme === "dark" ? "text-white" : "text-gray-900"
                   }`}>Message Sent!</h3>
                   <p className={theme === "dark" ? "text-gray-300" : "text-gray-600"}>
-                    Thank you for reaching out. We'll get back to you within 24 hours.
+                    {/* FIX: Changed We'll to We&apos;ll */}
+                    Thank you for reaching out. We&apos;ll get back to you within 24 hours.
                   </p>
                 </div>
               ) : (
@@ -265,8 +242,9 @@ export default function ContactPage() {
                     <p className={`text-lg mb-8 ${
                          theme === "dark" ? "text-gray-300" : "text-gray-600"
                          }`}>
-                            We're here to help! Reach out to us through any of these channels, 
-                            and we'll get back to you as soon as possible.
+                            {/* FIX: Changed We're and we'll */}
+                            We&apos;re here to help! Reach out to us through any of these channels, 
+                            and we&apos;ll get back to you as soon as possible.
                     </p>
                 </div>
                 {/* Single Card for all contact info */}

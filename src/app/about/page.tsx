@@ -1,26 +1,30 @@
 "use client";
 
 import { useTheme } from "../../components/ThemeProvider";
-import { useEffect, useState } from "react";
+// FIX: Imported useMemo
+import { useEffect, useState, useMemo } from "react";
 import Data from "../data/data.json";
 import { FaQuoteLeft } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 export default function About() {
   const { theme } = useTheme();
-  const { name, socials } = Data;
+  const { name } = Data;
 
-  const stats = [
+  // FIX: Wrapped the stats array in useMemo to prevent re-creation on every render.
+  const stats = useMemo(() => [
     { label: "Team Members", value: 2 },
     { label: "Projects", value: 50 },
     { label: "Happy Clients", value: 400 },
-  ];
+  ], []); // Empty dependency array means this is created only once.
 
-  const [counters, setCounters] = useState(stats.map(() => 0));
+  const [counters, setCounters] = useState(() => stats.map(() => 0));
 
   useEffect(() => {
     const duration = 1500; // 1.5s
     const incrementCounters = stats.map((stat, i) => {
+      // Ensure value is not zero to avoid division by zero
+      if (stat.value === 0) return null;
       const stepTime = Math.ceil(duration / stat.value);
       let current = 0;
       const interval = setInterval(() => {
@@ -35,8 +39,8 @@ export default function About() {
       return interval;
     });
 
-    return () => incrementCounters.forEach(clearInterval);
-  }, []);
+    return () => incrementCounters.forEach(interval => interval && clearInterval(interval));
+  }, [stats]); // Now this dependency is stable and won't cause re-runs.
 
   const testimonials = [
     {
@@ -82,11 +86,6 @@ export default function About() {
 
           {/* Right Illustration */}
           <div className="flex justify-center">
-            {/* <img
-              src="/about.svg" 
-              alt="Company Illustration"
-              className="w-full max-w-md"
-            /> */}
             <motion.img
             src="/about.svg"
             alt="Company Illustration"

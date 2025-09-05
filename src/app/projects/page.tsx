@@ -3,6 +3,7 @@
 import { useTheme } from "../../components/ThemeProvider";
 import { motion } from "framer-motion";
 import Data from "../data/data.json";
+import Image from "next/image"; 
 
 export default function ProjectsPage() {
   const { theme } = useTheme();
@@ -76,9 +77,12 @@ export default function ProjectsPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <img
-                  src={project.image} 
+                {/* FIX 2: Replaced <img> with <Image> */}
+                <Image
+                  src={project.image}
                   alt={project.title}
+                  width={500}
+                  height={192}
                   className="w-full h-48 object-cover"
                 />
                 <div className="p-6">
