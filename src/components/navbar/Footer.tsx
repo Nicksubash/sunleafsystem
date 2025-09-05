@@ -4,18 +4,22 @@ import Link from "next/link";
 import { useTheme } from "../ThemeProvider";
 import Data from "../../app/data/data.json";
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedin, FaBlogger } from "react-icons/fa";
+import { ReactElement } from "react";
+
 
 export default function Footer() {
   const { theme } = useTheme();
   const { name, contact, socials } = Data;
 
-  const iconMap: { [key: string]: JSX.Element } = {
-    facebook: <FaFacebookF />,
-    twitter: <FaTwitter />,
-    instagram: <FaInstagram />,
-    linkedin: <FaLinkedin />,
-    blog: <FaBlogger />,
-  };
+
+const iconMap: { [key: string]: ReactElement } = {
+  facebook: <FaFacebookF />,
+  twitter: <FaTwitter />,
+  instagram: <FaInstagram />,
+  linkedin: <FaLinkedin />,
+  blog: <FaBlogger />,
+};
+
 
   return (
     <footer
