@@ -1,0 +1,65 @@
+{
+    "name": "Sunleaf System Pvt Ltd.",
+    "contact": {
+      "address": "Kathmandu, Nepal",
+      "email": "sunleafsystem2025@gmail.com",
+      "phone": "+977-9841635402",
+      "fax":"",
+      "website": "https://sunleafsystem.com"
+    },
+    "socials": [
+      {
+        "id": 1,
+        "title": "Facebook",
+        "link": "https://www.facebook.com/profile.php?id=61577319763703"
+      },
+      {
+        "id": 2,
+        "title": "Twitter",
+        "link": "https://twitter.com/onestep"
+      },
+      {
+        "id": 3,
+        "title": "Instagram",
+        "link": "https://www.instagram.com/onestepteam/"
+      },
+      {
+        "id": 4,
+        "title": "Linkedin",
+        "link": "https://www.linkedin.com/in/one-step-co-ltd-313b5a373/"
+      },
+      {
+        "id": 5,
+        "title": "Blog",
+        "link": "https://onestep.com/blog"
+      }
+    ],
+    "projects" : [
+  {
+    "title": "One Step Group Website",
+    "description": "Corporate website for One Step Group Co., Ltd., showcasing their services and projects in Japan.",
+    "image": "/onestep.png",
+    "link": "https://onestep-group.co.jp",
+    "location": "Japan",
+    "category": "Web Development"
+  },
+  {
+    "title": "Learn & Growth Educational Portal",
+    "description": "A comprehensive educational website for Learn and Growth Educational Consultancy in Kathmandu, Nepal.",
+    "image": "/learn&growth.png",
+    "link": "https://learnandgrowth.edu.np/",
+    "location": "Kathmandu, Nepal",
+    "category": "Web Development"
+  },
+  {
+    "title": "Roshan Drilling Company Website",
+    "description": "Professional website for Roshan Drilling Company, presenting their projects and services in Nepal.",
+    "image": "/roshan.png",
+    "link": "https://roshandrilling.com/",
+    "location": "Kathmandu, Nepal",
+    "category": "Corporate Website"
+  }
+]
+
+  }
+  
