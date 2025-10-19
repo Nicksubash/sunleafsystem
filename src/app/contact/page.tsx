@@ -24,7 +24,6 @@ export default function ContactPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // --- THIS IS THE UPDATED FUNCTION ---
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -39,24 +38,22 @@ export default function ContactPage() {
         body: JSON.stringify(formData),
       });
 
+      const result = await response.json();
+
       if (!response.ok) {
-        // If the server response is not OK, throw an error
-        throw new Error('Failed to send message.');
+        // If the server response is not OK, show the specific error message
+        throw new Error(result.error || 'Failed to send message.');
       }
 
       // If successful, show the success message
       setIsSubmitted(true);
       setFormData({ name: "", email: "", company: "", subject: "", message: "" }); // Reset form
 
-      // Hide success message after 3 seconds
-      // setTimeout(() => {
-      //   setIsSubmitted(false);
-      // }, 3000);
-
     } catch (err) {
       // Catch any errors and display them
-      setError('Something went wrong. Please try again later.');
-      console.error(err);
+      const errorMessage = err instanceof Error ? err.message : 'Something went wrong. Please try again later.';
+      setError(errorMessage);
+      console.error('Contact form error:', err);
     } finally {
       // Always stop the submitting spinner
       setIsSubmitting(false);
@@ -254,6 +251,13 @@ export default function ContactPage() {
                     )}
                   </button>
                 </form>
+              )}
+              
+              {/* Error Display */}
+              {error && (
+                <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                  <p className="text-red-600 text-sm">{error}</p>
+                </div>
               )}
             </div>
 
