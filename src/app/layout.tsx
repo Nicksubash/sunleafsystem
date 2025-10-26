@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     description: 'Your IT Companion..',
   },
   icons: {
-    icon: "/sunleaf2.png",
+    icon: "/logo.png",
   },
 };
 
