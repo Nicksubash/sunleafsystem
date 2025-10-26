@@ -19,7 +19,7 @@ export default function Navbar() {
     }`}>
       <div className="container mx-auto flex justify-between items-center px-6 py-4">
         {/* Logo */}
-        <Image src="/sunleaf.png" alt="logo" width={100} height={100} />
+        <Image src="/sunleaf2.svg" alt="logo" width={100} height={100} />
         
         {/* Desktop Menu */}
         <nav className="hidden md:flex space-x-8 items-center">

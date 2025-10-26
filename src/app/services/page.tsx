@@ -13,7 +13,8 @@ export default function ServicesPage() {
       description: "Custom websites and web applications built with modern technologies for optimal performance and user experience.",
       features: ["React & Next.js", "Node.js Backend", "Database Integration", "API Development", "SEO Optimization"],
       icon: "🌐",
-      gradient: "from-blue-500 to-cyan-500"
+      gradient: "from-blue-500 to-cyan-500",
+      link: "/services/web-development"
     },
     {
       id: 2,
@@ -91,14 +92,14 @@ export default function ServicesPage() {
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              <div
+              <Link 
                 key={service.id}
-                className={`group relative rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 border ${
+                href={service.link || '#'}
+                className={`group relative rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 border block ${
                   theme === "dark" 
                     ? "bg-gray-800 border-gray-700 hover:border-gray-600" 
                     : "bg-white border-gray-100 hover:border-gray-200"
                 }`}
-                // FIX: Removed onMouseEnter and onMouseLeave as the state was unused.
                 style={{
                   animationDelay: `${index * 100}ms`
                 }}
@@ -145,7 +146,7 @@ export default function ServicesPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </button>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
