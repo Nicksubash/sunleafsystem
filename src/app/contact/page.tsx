@@ -4,6 +4,7 @@ import { useTheme } from "../../components/ThemeProvider";
 import Data from "../data/data.json";
 import { useState } from "react";
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaPaperPlane, FaCheckCircle } from "react-icons/fa";
+import { sendEmail } from "../../lib/emailjs";
 
 export default function ContactPage() {
   const { theme } = useTheme();
@@ -30,19 +31,10 @@ export default function ContactPage() {
     setError(null); 
 
     try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const result = await sendEmail(formData);
 
-      const result = await response.json();
-
-      if (!response.ok) {
-        // If the server response is not OK, show the specific error message
-        throw new Error(result.error || 'Failed to send message.');
+      if (!result.success) {
+        throw new Error(result.message);
       }
 
       // If successful, show the success message
