@@ -1,9 +1,15 @@
 'use client';
 
 import { useTheme } from './ThemeProvider';
+import { useState, useEffect } from 'react';
 
 export default function ThemeDebug() {
   const { theme, toggleTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <div className="fixed bottom-4 right-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 shadow-lg z-50">
@@ -12,7 +18,7 @@ export default function ThemeDebug() {
         Current theme: <span className="font-mono">{theme}</span>
       </p>
       <p className="text-xs text-gray-600 dark:text-gray-300 mb-2">
-        HTML class: <span className="font-mono">{typeof document !== 'undefined' ? document.documentElement.className : 'N/A'}</span>
+        HTML class: <span className="font-mono">{mounted ? document.documentElement.className : 'N/A'}</span>
       </p>
       <button
         onClick={toggleTheme}

@@ -1,9 +1,15 @@
 'use client';
 
 import { useTheme } from '@/components/ThemeProvider';
+import { useState, useEffect } from 'react';
 
 export default function TestThemePage() {
   const { theme, toggleTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white p-8">
@@ -28,7 +34,7 @@ export default function TestThemePage() {
             <h2 className="text-2xl font-semibold mb-4">Current Theme</h2>
             <p className="text-lg mb-2">Theme: <span className="font-mono bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded">{theme}</span></p>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              HTML classes: <span className="font-mono">{typeof document !== 'undefined' ? document.documentElement.className : 'Loading...'}</span>
+              HTML classes: <span className="font-mono">{mounted ? document.documentElement.className : 'Loading...'}</span>
             </p>
           </div>
         </div>

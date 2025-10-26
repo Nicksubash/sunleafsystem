@@ -87,7 +87,7 @@ export function getChangeFrequency(
 }
 
 // Function to get last modified date
-export function getLastModified(route: string): Date {
+export function getLastModified(_route: string): Date {
   // For now, return current date
   // You could enhance this to read actual file modification dates
   return new Date()

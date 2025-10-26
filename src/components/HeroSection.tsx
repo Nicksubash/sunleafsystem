@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { useTheme } from "./ThemeProvider";
 import AnimatedButton from "./buttons/AnimatedButton";
@@ -17,6 +17,11 @@ interface OrbitParams {
 export default function Hero3DGlobe(): JSX.Element {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -71,8 +76,16 @@ export default function Hero3DGlobe(): JSX.Element {
     const starsGeometry = new THREE.BufferGeometry();
     const starCount = 800;
     const starPositions = new Float32Array(starCount * 3);
+    
+    // Use a seeded random function to ensure consistent star positions
+    let seed = 12345; // Fixed seed for consistent generation
+    const seededRandom = () => {
+      seed = (seed * 9301 + 49297) % 233280;
+      return seed / 233280;
+    };
+    
     for (let i = 0; i < starCount * 3; i++) {
-      starPositions[i] = (Math.random() - 0.5) * 200;
+      starPositions[i] = (seededRandom() - 0.5) * 200;
     }
     starsGeometry.setAttribute("position", new THREE.BufferAttribute(starPositions, 3));
     const starsMaterial = new THREE.PointsMaterial({
@@ -235,6 +248,38 @@ export default function Hero3DGlobe(): JSX.Element {
       logoMat.dispose();
     };
   }, [theme]);
+
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return (
+      <section className="relative min-h-screen flex items-center overflow-hidden bg-gray-50 text-gray-900">
+        <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-12 relative z-10">
+          <div className="flex-1 text-center md:text-left">
+            <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">
+              Empowering Your{" "}
+              <span className="text-cyan-600">
+                Digital Growth
+              </span>
+            </h1>
+            <p className="mt-6 text-lg md:text-xl max-w-lg mx-auto md:mx-0 text-gray-600">
+              We build scalable mobile and web applications tailored to your
+              business needs. From startups to enterprises — we deliver
+              innovative IT solutions.
+            </p>
+            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+              <div className="px-8 py-3 rounded-lg font-semibold bg-gradient-to-r from-cyan-600 to-blue-600 text-white">
+                Get Started
+              </div>
+              <div className="px-6 py-3 rounded-lg border border-cyan-600 text-cyan-600">
+                View Services
+              </div>
+            </div>
+          </div>
+          <div className="flex-1 hidden md:block" style={{ minHeight: "500px" }} />
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
