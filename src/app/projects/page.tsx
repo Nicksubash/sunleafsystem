@@ -118,7 +118,7 @@ export default function ProjectsPage() {
       </section>
 
       {/* Optional Stats Section */}
-      <section className="py-16 px-6">
+      {/* <section className="py-16 px-6">
         <div className="container mx-auto max-w-6xl grid md:grid-cols-3 gap-12 text-center">
           <div>
             <h2 className="text-4xl font-bold text-cyan-500">50+</h2>
@@ -139,7 +139,7 @@ export default function ProjectsPage() {
             </p>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }
