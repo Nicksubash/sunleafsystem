@@ -24,8 +24,13 @@ export default function Hero3DGlobe(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!mounted || !containerRef.current) return;
     const container = containerRef.current;
+    
+    // Clear any existing content in the container
+    while (container.firstChild) {
+      container.removeChild(container.firstChild);
+    }
 
     // --- Scene Setup ---
     const scene = new THREE.Scene();
@@ -102,6 +107,7 @@ export default function Hero3DGlobe(): JSX.Element {
     const logoTexture = textureLoader.load(
       theme === "dark" ? "/icons/logo.png" : "/icons/logo-light.png"
     );
+    const iconTextures: THREE.Texture[] = [];
     // Create a curved plane that matches the globe's surface curvature
     const logoGeo = new THREE.PlaneGeometry(9, 9, 32, 32);
     const logoMat = new THREE.MeshBasicMaterial({
@@ -166,6 +172,7 @@ export default function Hero3DGlobe(): JSX.Element {
     // ☁️ Orbiting Icons
     const createIcon = (params: OrbitParams): THREE.Mesh => {
       const texture = textureLoader.load(params.path);
+      iconTextures.push(texture);
       const material = new THREE.MeshBasicMaterial({
         map: texture,
         transparent: true,
@@ -197,8 +204,13 @@ export default function Hero3DGlobe(): JSX.Element {
 
     // 🎬 Animation Loop
     const clock = new THREE.Clock();
+    let animationFrameId: number;
+    let isAnimating = true;
+    
     const animate = () => {
-      requestAnimationFrame(animate);
+      if (!isAnimating) return;
+      
+      animationFrameId = requestAnimationFrame(animate);
       const elapsed = clock.getElapsedTime();
 
       // Rotate globe slowly
@@ -234,10 +246,17 @@ export default function Hero3DGlobe(): JSX.Element {
 
     // 🧹 Cleanup
     return () => {
+      // Stop animation loop
+      isAnimating = false;
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+      
+      // Remove event listeners
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("resize", handleResize);
-      container.removeChild(renderer.domElement);
-      renderer.dispose();
+      
+      // Dispose of all geometries and materials
       globeGeometry.dispose();
       edges.dispose();
       pointsMaterial.dispose();
@@ -246,8 +265,28 @@ export default function Hero3DGlobe(): JSX.Element {
       starsMaterial.dispose();
       logoGeo.dispose();
       logoMat.dispose();
+      logoGeo2.dispose();
+      logoMat2.dispose();
+      
+      // Dispose of textures
+      if (logoTexture) logoTexture.dispose();
+      iconTextures.forEach(texture => texture.dispose());
+      icons.forEach(icon => {
+        icon.geometry.dispose();
+        if (Array.isArray(icon.material)) {
+          icon.material.forEach(mat => mat.dispose());
+        } else {
+          icon.material.dispose();
+        }
+      });
+      
+      // Remove renderer from DOM and dispose
+      if (container && renderer.domElement && container.contains(renderer.domElement)) {
+        container.removeChild(renderer.domElement);
+      }
+      renderer.dispose();
     };
-  }, [theme]);
+  }, [theme, mounted]);
 
   // Prevent hydration mismatch by not rendering until mounted
   if (!mounted) {

@@ -11,8 +11,6 @@ const nextConfig: NextConfig = {
   experimental: {
     esmExternals: false,
   },
-  // Ensure all routes are statically generated
-  generateStaticParams: true,
 };
 
 export default nextConfig;
