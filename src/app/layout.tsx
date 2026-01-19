@@ -47,7 +47,8 @@ export const metadata: Metadata = {
     description: 'Your IT Companion..',
   },
   icons: {
-    icon: "/logo.png",
+    icon: "/icons/logo.png",
+    apple: "/icons/logo.png",
   },
 };
 
@@ -64,7 +65,7 @@ export default function RootLayout({
         <ClientThemeProvider>
           <Navbar />
           {children}
-          <Footer/>
+          <Footer />
         </ClientThemeProvider>
       </body>
     </html>
